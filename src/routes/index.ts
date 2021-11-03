@@ -9,5 +9,6 @@ const sessionController = new SessionController();
 
 router.post('/users', usersController.create);
 router.post('/session', sessionController.execute);
+router.get('/', usersController.list)
 
 export default router;

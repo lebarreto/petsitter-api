@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as Yup from 'yup';
-import { getConnection } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { uuid } from 'uuidv4';
 import { hash } from 'bcryptjs';
 
@@ -34,8 +34,8 @@ export default class UsersController {
 
         const hashedPassword = await hash(password, 8);
 
-        const user = await getConnection()
-            .createQueryBuilder()
+        const user = await getRepository(Users)
+            .createQueryBuilder('users')
             .insert()
             .into(Users)
             .values([
@@ -51,5 +51,9 @@ export default class UsersController {
 
         return response.json(user)
 
+    }
+
+    public async list(request: Request, response: Response): Promise<Response> {
+        return response.json('testeeeeeeee')
     }
 }
